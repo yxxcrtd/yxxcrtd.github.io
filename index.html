@@ -1,13 +1,1 @@
-Welcome!
-By 杨欣欣
-
-
-Dockerfile
-
-FROM java:8
-MAINTAINER yxx
-ADD jupiter.jar jupiter.jar
-EXPOSE 2021
-ENTRYPOINT ["java", "-jar", "jupiter.jar"]
-RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN echo "Asia/Shanghai" >/etc/timezone
+Hello, I'm 杨欣欣
