@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>DB2 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        DB2 是 IBM开发的一种大型关系型数据库平台。它以拥有一个非常完备的查询优化器而著称，其外部连接改善了查询性能，并支持多任务并行查询。具有很好的网络支持能力，对大型分布式应用系统尤为适用。
+                    </p>
+                </div>
+                <div><p class="title">一，Linux 下安装 DB2</p>
+<p>1，root 用户下创建用户组、用户以及修改密码：
+    <div class="code">
+        <p class="comment">1.1，创建用户组：
+            <div class="code">
+                <p>groupadd  db2iadm1</p>
+                <p>groupadd db2fadm1</p>
+                <p>groupadd dasadm1</p>
+            </div>
+        </p>
+
+        <p class="comment">1.2，创建用户：
+            <div class="code">
+                <p>useradd -u 600 -g db2iadm1 -m -d /home/db2inst1 db2inst1</p>
+                <p>useradd -u 601 -g db2fadm1 -m -d /home/db2fenc1 db2fenc1</p>
+                <p>useradd -u 602 -g dasadm1 -m -d /home/dasusr1 dasusr1</p>
+            </div>
+        </p>
+
+        <p class="comment">1.3，修改密码：
+            <div class="code">
+                <p>passwd db2inst1</p>
+                <p>passwd db2fenc1</p>
+                <p>passwd dasusr1</p>
+            </div>
+        </p>
+    </div>
+</p>
+<br />
+
+
+<p>2，解压 DB2 的数据库压缩包：<div class="code"><p>tar zxvf DB2_Svr_10.5.0.1_Linux_x86-64.gz -C /home/db2inst1/</p></div></p>
+<br />
+
+
+<p>3，安装：
+    <div class="code">
+        <p>/home/db2inst1/server/db2_install</p>
+        <p class="comment">提示安装路径：/opt/ibm/V10.5 ？[yes/no]，输入：<span class="red">yes</span></p>
+        <p class="comment">选择安装版本：输入：<span class="red">server</span></p>
+        <p class="comment">安装 DB2 pureScale 功能，输入：<span class="red">no</span></p>
+        <p class="comment">安装成功后会显示：The execution completed successfully... log ...</p>
+    </div>
+</p>
+<br />
+
+
+<p>4，注册：
+    <div class="code">
+        <p class="comment">4.1，查看是否注册：
+            <div class="code">
+                <p>/opt/ibm/db2/V10.5/adm/db2licm -l</p>
+                <p class="comment">未注册会显示：License not registered</p>
+            </div>
+        </p>
+
+        <p class="comment">4.2，注册：
+            <div class="code">
+                <p>/opt/ibm/db2/V10.5/adm/db2licm -a /root/soft/db2/license/db2aese_c10.5.lic</p>
+                <p class="comment">注册文件在解压目录，以上路径各自不一致</span></p>
+            </div>
+        </p>
+
+        <p class="comment">4.3，注册验证：
+            <div class="code">
+                <p>/opt/ibm/db2/V10.5/adm/db2licm -l</p>
+                <p class="comment">Expiry date 为：Permainent 表示注册成功！</p>
+            </div>
+        </p>
+    </div>
+</p>
+<br />
+
+
+<p>5，创建数据库实例：
+    <div class="code">
+        <p>/opt/ibm/db2/V10.5/instance/db2icrt -u db2fenc1 db2inst1</p>
+        <p class="comment">创建成功后会显示：The execution completed successfully...</p>
+        <p class="comment">查看实例端口：more /etc/services | grep db2inst1，默认的 DB2_db2inst1 实例端口号为：60006</p>
+    </div>
+</p>
+<br />
+
+
+<p>6，配置数据库服务器的 TCP/IP 通信：
+    <div class="code">
+        <p class="comment">6.1，切换 db2inst1 用户：<div class="code"><p>su - db2inst1</p></div></p>
+        <p class="comment">6.2，设置通信协议：<div class="code"><p>db2set DB2COMM=tcpip</p></div></p>
+        <p class="comment">6.3，查看通信协议：<div class="code"><p>db2set -all</p></div></p>
+        <p class="comment">6.4，更新服务器上的services文件：<div class="code"><p>cat /etc/services | grep DB2</p></div></p>
+        <p class="comment">6.5，更新数据库管理文件：<div class="code"><p>db2set -all</p></div></p>
+        <p class="comment">6.6，更新数据库管理文件：
+            <div class="code">
+                <p>db2 get dbm cfg | grep SVCENAME</p>
+                <p>db2 update dbm cfg using SVCENAME 60006</p>
+                <p class="comment">再次验证：db2 get dbm cfg | grep SVCENAME</p>
+            </div>
+        </p>
+        <p class="comment">6.7，启动数据库：<div class="code"><p>db2start</p></div></p>
+        <p class="comment">6.8，查看端口：<div class="code"><p>netstat -an | grep 60006</p><p class="comment">会显示：tcp6       0      0 :::60006                :::*                    LISTEN</p></div></p>
+    </div>
+</p>
+<br />
+
+
+<p>7，设置服务器防火墙：
+    <div class="code">
+        <p class="comment">7.1，增加防火墙规则：
+            <div class="code">
+                <p>firewall-cmd --zone=public --add-port=60006/tcp --permanent</p>
+            </div>
+        </p>
+
+        <p class="comment">7.2，重启防火墙：
+            <div class="code">
+                <p>systemctl restart firewalld</p>
+            </div>
+        </p>
+    </div>
+</p>
+<br />
+
+
+<p>8，创建数据库用户：
+    <div class="code">
+        <p class="comment">8.1，创建新用户：
+            <div class="code">
+                <p>useradd -u 603 -g db2iadm1 -m -d /home/db2inst1/ <span class="red">test</span></p>
+                <p class="comment">注意参数的大小写：</p>
+                <p class="comment">-u 设置用户ID</p>
+                <p class="comment">-g 设置用户初始所属群组</p>
+                <p class="comment">-m 自动建立用户的登入目录</p>
+                <p class="comment">-d 指定用户登入时的启始目录</p>
+            </div>
+        </p>
+
+        <p class="comment">8.2，添加用到组：
+            <div class="code">
+                <p>usermod -a -G db2fadm1 <span class="red">test</span></p>
+                <p>usermod -a -G dasadm1 <span class="red">test</span></p>
+            </div>
+        </p>
+
+        <p class="comment">8.3，修改密码：<div class="code"><p>passwd <span class="red">test</span></p></div></p>
+
+        <p class="comment">8.4，修改用户的访问权限：<div class="code"><p>chmod 777 /home/db2inst1/ -R</p></div></p>
+
+        <p class="comment">8.5，切换用户，查看有没有访问权限：
+            <div class="code">
+                <p>su - db2inst1</p>
+                <p>vim .bashrc</p>
+                <p style="text-align: center;">
+                    <a href="images/article/article31.01.png" data-fancybox>
+                        <img src="images/article/article31.01.png" width="700" />
+                    </a>
+                </p>
+            </div>
+        </p>
+    </div>
+</p>
+<br />
+
+
+<p>9，创建数据库：
+    <div class="code">
+        <p class="comment">9.1，创建数据库：
+            <div class="code">
+                <p>db2 create database <span class="red">testdb</span> automatic storage yes on '/home/db2inst1' dbpath on '/home/db2inst1' using codeset gbk territory cn collate using system pagesize 16384</p>
+            </div>
+        </p>
+
+        <p class="comment">9.2，创建 schema：
+            <div class="code">
+                <p>create schema <span class="red">myschema</span></p>
+            </div>
+        </p>
+
+        <p class="comment">9.3，查看所有数据库：
+            <div class="code">
+                <p>db2 list db directory</p>
+            </div>
+        </p>
+
+        <p class="comment">9.4，查看所有表：
+            <div class="code">
+                <p>db2 list tables</p>
+            </div>
+        </p>
+
+        <p class="comment">9.5，连接数据库：
+            <div class="code">
+                <p>db2 connect to <span class="red">testdb</span> user <span class="red">test</span> using <span class="red">123456</span></p>
+            </div>
+        </p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">二，备份</p>
+<p>1，切换用户：<div class="code"><p>su - db2inst1</p></div></p>
+<p>2，显示所有连接数据库的客户端：<div class="code"><p>db2 list application</p></div></p>
+<p>3，显示所有激活的数据库：<div class="code"><p>db2 list active databases</p></div></p>
+<p>4，强制关闭所有数据库实例：<div class="code"><p>db2 force application all</p></div></p>
+<p>5，<span class="red">快速</span>执行下面的备份命令，否则数据库会自动重连：
+    <div class="code">
+        <p>db2 backup db dbbak to /home/db2inst1</p>
+        <p class="comment"> dbbak：是当前数据库的名称</p>
+        <p class="comment">备份成功后会显示：Backup successful. The timestamp for this backup image is : 20200401160847</p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">三，还原</p>
+<p>1，找到备份文件并显示：<div class="code"><p>显示所有文件：ll <br />会显示：DBBAK.0.db2inst1.DBPART000.<span class="red">20200401160847</span>.001</p></div></p>
+<p>
+    2，还原：
+    <div class="code">
+        <p>db2 restore db <span class="red">dbbak</span> from <span class="red">/home/db2inst1</span> taken at <span class="red">20200401160847</span> into dbbak01</p>
+        <p class="comment">注意1：必须在数据库用户下：su - db2inst1</p>
+        <p class="comment">注意2：dbbak 是备份库的名称</p>
+        <p class="comment">注意3：其中的 <span class="red">20200401160847</span> 是要还原的数据库文件</p>
+        <p class="comment">注意4：dbbak01 是新库名称（<span class="red">名称不能超过8个字符</span>）</p>
+        <p class="comment">注意5：还原成功后会显示：DB20000I  The RESTORE DATABASE command completed successfully.</p>
+    </div>
+</p>
+<p>
+    3，还原其他备份的库：
+    <div class="code">
+        <p>chown -R db2inst1:db2iadm1 数据库备份文件</p>
+        <p class="comment">注意1：备份文件拷贝到：/home/db2inst1</p>
+        <p class="comment">注意2：改变备份文件的用户权限组</p>
+        <p class="comment">注意3：如果出现：SQL1051N  The path "***" does not exist or is not valid. ，则需要创建相应的目录，然后将备份文件拷贝进去，最后授权：chown -R db2inst1:db2iadm1 备份文件</p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">四，删除数据库</p>
+<p>
+    1，接触激活：
+    <div class="code"><p>db2 deactivate database test</p></div>
+    <p>成功会显示：DB20000I  The DEACTIVATE DATABASE command completed successfully.</p>
+</p>
+<p>
+    2，退出数据库：
+    <div class="code"><p>db2 terminate</p></div>
+    <p>成功会显示：DB20000I  The TERMINATE command completed successfully.</p>
+</p>
+<p>
+    3，删除数据库：
+    <div class="code"><p>db2 drop db test</p></div>
+    <p>成功会显示：DB20000I  The DROP DATABASE command completed successfully.</p>
+</p>
+<p>4，显示所有数据库：<div class="code"><p>db2 list db directory</p></div></p>
+<br />
+
+
+<p class="title">五，定时全量备份数据库</p>
+<p>
+    1，在登录用户的目录下创建备份的shell脚本：backup.sh，内容如下：
+    <div class="code">
+        <p>
+
+#!/bin/sh <br />
+ <br />
+# Delete 30 days before <br />
+find /home/db2backup/ -mtime +30 -name "*.001" -exec rm -rf {} \; <br /> <br />
+
+# Backup database
+su - db2inst1 &lt;&lt;EOF <br />
+db2 force application all <br />
+db2 backup db RBDB to /home/backup <br />
+if [ $? -ne 0 ]; <br />
+then <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;echo 'Ooops ...' <br />
+else <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;echo 'Backup Successful!' <br />
+fi <br />
+EOF <br />
+<br />
+
+# scp <br />
+var_date=$(date "+%Y%m%d") <br />
+# scp /home/db2backup/数据库名称.0.db2inst1.DBPART000.$var_date* root@192.168.1.2:/home/db2backup <br />
+<br />
+
+# ftp （提前安装 lftp：yum -y install lftp）<br />
+lftp ftp用户名:ftp密码@192.168.1.2 &lt;&lt;EOF <br />
+cd /backup <br />
+mput /home/db2backup/* <br />
+EOF
+
+</p>
+    </div>
+</p>
+
+<p>2，将 shell 脚本加入到系统的定时任务中，在终端执行：<span class="red">crontab -e</span>，每天凌晨1点执行 shell 脚本<div class="code"><p>0 1 * * * /root/backup.sh</p></div></p>
+
+<p>3，重启系统的定时任务，在终端执行：
+    <div class="code">
+        <p><span  class="comment">CentOS 6：</span><br />service crond restart</p>
+        <p><span  class="comment">CentOS 7：</span><br />systemctl restart crond</p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">六，定时删除数据库备份文件</p>
+<p>
+    1，在登录用户的目录下创建定时删除备份的shell脚本：delbackup.sh，内容如下：
+    <div class="code">
+        <p>
+
+#!/bin/sh <br />
+ <br />
+find /home/backup/ -mtime +7 -name "*.001" -exec rm -rf {} \;<br />
+
+</p>
+    </div>
+</p>
+
+<p>
+    2，将 shell 脚本加入到系统的定时任务中，在终端执行：<span class="red">crontab -e</span>，每天凌晨2点执行 shell 脚本
+    <div class="code"><p>0 2 * * * /home/delbackup.sh</p></div>
+</p>
+
+<p>3，重启系统的定时任务，在终端执行：
+    <div class="code">
+        <p><span  class="comment">CentOS 6：</span><br />service crond restart</p>
+        <p><span  class="comment">CentOS 7：</span><br />systemctl restart crond</p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">八，数据库基本操作</p>
+<p>1，进入数据库：<div class="code"><p>db2 connect to '数据库名称' user '用户名' using '密码'</p></div></p>
+<p>2，显示所有表：<div class="code"><p>db2 list tables</p></div></p>
+<br />
+
+
+<p class="title">九，数据库磁盘满，报错：SQL1031N  The database directory cannot be found on the indicated file system. 或 db2数据库SQL1032N  No start database manager command was issued.  SQLSTATE=<span class="red">57019</span></p>
+<p>1，在 root 下，查看数据库节点的域名配置：<div class="code"><p>cat /home/db2inst1/sqllib/db2nodes.cfg</p></div></p>
+<p>2，在 root 下，将第1步结果 0 ？0 中间的域名或hostanme（如 ？是：db2-dev）写入 hosts：<div class="code"><p>192.168.1.2	db2-dev localhost localhost.localdomain localhost4 localhost4.localdomain4</p></div></p>
+<p>3，查看当前使用的共享内存、消息队列及信号量：<div class="code"><p>ipcs -la</p></div></p>
+<p>4，清理当前使用的共享内存、消息队列及信号量：<div class="code"><p>ipclean</p></div></p>
+<p>5，启动数据库：<div class="code"><p>db2start</p><p class="comment">最好能重新下服务器</p></div></p>
+<br />
+
+
+<p class="title">十，数据库超过最大的连接数200，报错：待定于协议的错误代码 数据不足[ibm][db2][jcc][t4][2030][11211] ERRORCODE=-4499, SQLSTATE=08001</p>
+<p>1，查看指定数据库配置（为了前后对比）：<div class="code"><p>db2 get db cfg for yourdb</p></div></p>
+<p>2，修改数据库连接：<div class="code"><p>db2 update db cfg for yourdb using MAXAPPLS 1000</p></div></p>
+<br />
+
+
+<p class="title">十一，如果表的日志空间满了</p>
+<p><div class="code"><p>db2 update db cfg for 数据库名称 using LOGFILSIZ 10240;</p></div></p>
+<br />
+
+
+<p class="title">十二，数据库系统信号量超过限制，出现：SQL0902C  A system error occurred. Subsequent SQL statements cannot be processed. IBM software support reason code: "".  SQLSTATE=58005</p>
+<p>
+    <div class="code">
+        <p class="comment">查看系统总信号量：（max number of arrays = ？）</p>
+        <p>ipcs -l</p>
+        <p class="comment">查看系统当前信号量：</p>
+        <p>ipcs -s | wc -l</p>
+        <p class="comment">如果：当前信号量 > 系统总信号量：</p>
+        <p>sysctl -w kernel.sem="250 32000 100 <span class='red'> 512</span>"</p>
+    </div>
+</p>
+<br /></div>
+                <h4>Posted: 2022-03-23 08:53:38</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

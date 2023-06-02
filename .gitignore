@@ -1,0 +1,18 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+
+# Mac
+.DS_Store
+
+
+# For VSCode
+.classpath
+.project
+bin/
+.settings
+.vscode
+
+.history/

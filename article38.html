@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Maven 私服 - Nexus</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        Nexus 是一个强大的 Maven 仓库管理器，它极大地简化了自己内部仓库的维护和外部仓库的访问。
+                    </p>
+                </div>
+                <div><p class="title">一，Linux 下 Nexus 3 的安装</p>
+<p>1，在官网：<a href="http://www.sonatype.org/downloads" target="_blank">http://www.sonatype.org/downloads</a> 下载：https://download.sonatype.com/nexus/3/latest-unix.tar.gz</p>
+<p>2，创建安装目录和所有 jar 包的存储目录：<div class="code"><p>mkdir /home/nexus3 -m 777</p></div></p>
+<p>3，解压到目录：<div class="code"><p>tar zxvf nexus-3.34.0-01-unix.tar.gz -C /home/nexus3</p></div></p>
+<p>4，追加运行用户的环境变量：（可以跳过）</p>
+<div class="code">
+    <p>vim /etc/profile</p>
+    <p>export RUN_AS_USER=root</p>
+    <p>export PATH=$RUN_AS_USER:$PATH</p>
+</div>
+<p>5，修改运行端口（如果使用默认8081就跳过这一步）：<div class="code"><p>vim /home/nexus3/nexus-3.34.0-01/etc/nexus-default.properties</p></div></p>
+<p>6，启动服务：<div class="code"><p>/home/nexus3/nexus-3.34.0-01/bin/nexus start &</p></div></p>
+<p>7，查看启动日志：<div class="code"><p>tailf /home/nexus3/sonatype-work/nexus3/log/nexus.log</p></div></p>
+<p>8，访问：http://192.168.1.2:8081（用户：admin，密码在：cat /home/nexus3/sonatype-work/nexus3/admin.password）</p>
+<br />
+
+
+
+<p class="title">二，Nexus 配置</p>
+<p>1，修改密码</p>
+<p>2，删除所有默认仓库</p>
+
+<p>3，创建 proxy 库
+    <div class="code">
+        <p>1，输入名称：proxy</p>
+        <p>2，默认勾选 Online：If checked, the repository accepts incoming requests</p>
+        <p>3，Version policy：选 Mixed（可包含：release 和 SNAPSHOT）</p>
+        <p>4，Remote Storage：http://maven.aliyun.com/nexus/content/groups/public</p>
+        <p>5，Blob store：default</p>
+        <p>6，Strict Content Type Validation:  不勾选 Validate that all content uploaded to this repository is of a MIME type appropriate for the repository format</p>
+        <p><span class="comment">如果不去掉的话，deploy 会报错: </span></p>
+        <p><span class="comment">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy (default-deploy) on project app-boot: Failed to deploy artifacts: Could not transfer artifact ******:jar:1.0.0-20210909.033727-1 f
+rom/to snapshots (http://192.168.1.2:8081/repository/hosted/): transfer failed for http://192.168.1.2:8081/repository/hosted/com/***/***/***/1.0.0-SNAPSHOT/***-1.0.0-20210909.033727-1.jar, status: 400 Detected conte
+nt type [application/x-sh], but expected [application/java-archive]: ***/***/***/***/1.0.0-SNAPSHOT/app-boot-1.0.0-20210909.033727-1.jar -> [Help 1]
+</span></p>
+    </div>
+</p>
+
+<p>4，创建 hosted 库
+    <div class="code">
+        <p>1，输入名称：hosted</p>
+        <p>2，默认勾选 Online：If checked, the repository accepts incoming requests</p>
+        <p>3，Version policy：选 Mixed（可包含：release 和 SNAPSHOT）</p>
+        <p>4，Deployment policy：Allow redeploy</p>
+        <p>5，Blob store：default</p>
+        <p>6，Strict Content Type Validation:  不勾选 Validate that all content uploaded to this repository is of a MIME type appropriate for the repository format</p>
+    </div>
+</p>
+
+<p>5，创建 group 库
+    <div class="code">
+        <p>1，输入名称：public</p>
+        <p>2，默认勾选 Online：If checked, the repository accepts incoming requests</p>
+        <p>3，Version policy：选 Mixed（可包含：release 和 SNAPSHOT）</p>
+        <p>4，Blob store：default</p>
+        <p>5，Strict Content Type Validation:  不勾选 Validate that all content uploaded to this repository is of a MIME type appropriate for the repository format</p>
+        <p>6，Group：将 proxy 和 hosted 移动到右边（hosted 在上，proxy 在下）</p>
+    </div>
+</p>
+<br />
+
+
+
+<p class="title">三，配置 Maven 的 settings.xml 文件，用于打包 deploy 到私服</p>
+<p style="text-align: center;">
+    <a href="images/article/article38.01.png" data-fancybox>
+        <img src="images/article/article38.01.png" width="835" />
+    </a>
+</p>
+<p>
+    <div class="code">
+        <p class="comment">3.1，在终端打包：<div class="code"><p>mvn clean deploy -DskipTests</p></div></p>
+        <p class="comment">3.2，带上源代码：<div class="code"><p>mvn clean source:jar deploy -DskipTests</p></div></p>
+        <p class="comment">3.3，打包其他文件：<div class="code"><p>mvn deploy -f pom-parent.xml</p></div></p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">四，在 pom.xml 中配置当前项目或 Module  打包</p>
+<p style="text-align: center;">
+    <a href="images/article/article38.02.png" data-fancybox>
+        <img src="images/article/article38.02.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">五，在 Maven 项目中定义一个外部的 settings.xml （文件名任意），用来拉取依赖的 jar 包</p>
+<p style="text-align: center;">
+    <a href="images/article/article38.03.png" data-fancybox>
+        <img src="images/article/article38.03.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+
+<p class="title">六，安装 jar 包</p>
+<p>1，安装到本地：
+    <div class="code">
+        <p>mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=7.0 -Dpackaging=jar -Dfile=/Users/young/Desktop/ojdbc7.jar</p>
+        <p class="comment">注意1：-Dversion=7.0这里的7.0要与dependency中的version对应；</p>
+        <p class="comment">注意2：jar的路径，下载后放着任意路径，maven自动会安装到它自己的本地仓库中</p>
+        <p class="comment">也可以直接从服务器上下载：scp -r root@1.2.3.4:/home/repo/com/ibm/db2 /Users/young/repo/com/ibm</p>
+    </div>
+</p>
+<p>2，安装到私服：
+    <div class="code">
+        <p>mvn deploy:deploy-file -DgroupId=org.postgresql -DartifactId=postgresql -Dversion=42.2.19 -Dpackaging=jar -Dfile=/Users/young/repository/org/postgresql/postgresql/42.2.19/postgresql-42.2.19.jar -Durl=http://192.168.1.2:8081/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty</p>
+
+        <p>mvn deploy:deploy-file -DgroupId=org.postgresql -DartifactId=postgresql -Dversion=42.2.19 -Dpackaging=jar -Dfile=C:\Users\admin\Desktop\postgresql-42.2.19.jar -Durl=http://192.168.1.2:8081/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty</p>
+    </div>
+</p>
+<br />
+
+
+
+<p class="title">七，批量上传 jar 包到私服（私服服务器上的文件拷贝）</p>
+<p>1，将有包的层级目录的文件夹拷贝到服务器的某目录或本地，如：/home/repo/...</p>
+<p>2，在 repo 目录中创建一个 shell 文件（需要授权）：<div class="code"><p>touch mavenimport.sh</p></div></p>
+<p>3，mavenimport.sh 的内容如下：
+    <div class="code">
+
+<p>#!/bin/bash</p>
+<p>while getopts ":r:u:p:" opt;do</p>
+	<p class="indent">case $opt in</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;r) REPO_URL="$OPTARG"</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;;;</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;u) USERNAME="$OPTARG"</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;;;</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;p) PASSWORD="$OPTARG"</p>
+		<p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;;;</p>
+	<p class="indent">esac</p>
+<p>done</p>
+
+<p>find . -type f -not -path './mavenimport\.sh*' -not -path '*/\.*' -not -path '*/\^archetype\-catalog\.xml*' -not -path '*/\^maven\-metadata\-local*\.xml' -not -path '*/\^maven\-metadata\-deployment*\.xml' | sed "s|^\./||" | xargs -I '{}' curl -u "$USERNAME:$PASSWORD" -X PUT -v -T {} ${REPO_URL}/{};</p>
+    </div>
+</p>
+<p>4，repo 下执行：<div class="code"><p>./mavenimport.sh -u admin -p admin -r http://192.168.1.2:8082/repository/hosted/</p></div></p>
+<br /></div>
+                <h4>Posted: 2022-04-06 09:10:08</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

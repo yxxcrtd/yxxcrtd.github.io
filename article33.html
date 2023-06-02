@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>微信小程序开发</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        微信小程序开发
+                    </p>
+                </div>
+                <div><p class="title">一，安装微信开发者工具：</p>
+<p><div class="code"><p>brew install wechatwebdevtools</p></div></p>
+<br />
+
+<p class="title">二，配置微信开发者工具：</p>
+<p>
+    <a href="images/article/article33.01.png" data-fancybox>
+        <img src="images/article/article33.01.png" width="835" />
+    </a>
+</p>
+<p>
+    <a href="images/article/article33.02.png" data-fancybox>
+        <img src="images/article/article33.02.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+
+<p class="title">三，几种路由比较</p>
+<p>
+    <table>
+        <tr>
+            <td>wx.navigateTo()</td>
+            <td>带历史回退，不能跳转到tabbar页面</td>
+        </tr>
+        <tr>
+            <td>wx.redirectTo()</td>
+            <td>不保留历史，跳转到另一个页面，不能返回到上一页面</td>
+        </tr>
+        <tr>
+            <td>wx.switchTab()</td>
+            <td>只跳转到tabBar页面，不带回退</td>
+        </tr>
+        <tr>
+            <td>wx.reLaunch()</td>
+            <td>即能跳转到tabBar页面，也能跳转到非tabBar页面，不带历史回退</td>
+        </tr>
+    </table>
+</p>
+<br />
+
+
+<p class="title">四，Navigator 几种超链接的属性</p>
+<p>
+    <table>
+        <tr>
+            <td>navigate</td>
+            <td>保留当前页面，跳转到应用内的某个页面,但不能跳转到tabbar页面</td>
+        </tr>
+        <tr>
+            <td>redirect</td>
+            <td>关闭当前页面，跳转到应用内的某个页面，但不允许跳转到tabbar页面</td>
+        </tr>
+        <tr>
+            <td>reLaunch</td>
+            <td>关闭所有页面，打开到应用内的某个页面</td>
+        </tr>
+        <tr>
+            <td>switchTab</td>
+            <td>跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面</td>
+        </tr>
+        <tr>
+            <td>navigateBack</td>
+            <td>关闭当前页面，返回上一页面或多级页面。可通过getCurrentPages()获取当前的页面栈，决定需要返回几层</td>
+        </tr>
+        <tr>
+            <td>exit</td>
+            <td>退出小程序，target="miniProgram"时生效</td>
+        </tr>
+    </table>
+    <p>跳转到tabbar页面 必须要添加属性open-type=“switchTab”</p>
+</p>
+<br />
+
+
+<p class="title">五，下拉选择</p>
+<p>1，在数据库中准备数据</p>
+<p>
+    <a href="images/article/article33.03.png" data-fancybox>
+        <img src="images/article/article33.03.png" width="835" />
+    </a>
+</p>
+
+<p>2，注意微信小程序中 picker 节点中的 value 是后台需要的key，也就是：001、002 ...</p>
+<p>
+    <a href="images/article/article33.04.png" data-fancybox>
+        <img src="images/article/article33.04.png" width="835" />
+    </a>
+</p>
+
+<p>3，微信小程序的 js 代码</p>
+<p>
+    <a href="images/article/article33.05.png" data-fancybox>
+        <img src="images/article/article33.05.png" width="835" />
+    </a>
+</p>
+
+<p>4，调用接口返回的后台数据格式</p>
+<p>
+    <a href="images/article/article33.06.png" data-fancybox>
+        <img src="images/article/article33.06.png" width="835" />
+    </a>
+</p>
+
+<p>5，最后的效果</p>
+<p>
+    <a href="images/article/article33.07.png" data-fancybox>
+        <img src="images/article/article33.07.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">六，日期下拉选择</p>
+<p>1，将 picker 的 mode 设置成：date，即可展示时间的下拉选择</p>
+<p>
+    <a href="images/article/article33.08.png" data-fancybox>
+        <img src="images/article/article33.08.png" width="835" />
+    </a>
+</p>
+
+<p>2，js 中设置点击事件即可</p>
+<p>
+    <a href="images/article/article33.09.png" data-fancybox>
+        <img src="images/article/article33.09.png" width="835" />
+    </a>
+</p></div>
+                <h4>Posted: 2022-02-12 09:40:33</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

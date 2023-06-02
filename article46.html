@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Jar 包部署到 Docker</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        直接将 jar 包部署到 Docker 中并运行
+                    </p>
+                </div>
+                <div><div class="code">
+    <p>1，将 jar 包放到指定目录</p>
+</div>
+
+<div class="code">
+    <p>
+        2，在 jar 包同级目录创建 <span class="red">Dockerfile</span>，vim Dockfile<br />
+
+FROM java:8<br />
+MAINTAINER yxx<br />
+ADD tams.jar demo.jar<br />
+EXPOSE 8080<br />
+ENTRYPOINT ["java", "-jar", "demo.jar"]<br />
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br />
+RUN echo "Asia/Shanghai" >/etc/timezone<br />
+    </p>
+</div>
+
+<div class="code">
+    <p>3，构建镜像：docker build -t tams .（注意：最后有一个点；tams 是构建之后的镜像名称，可以加版本号）</p>
+</div>
+
+
+<div class="code">
+    <p>4，运行镜像：docker run -e TZ="Asia/Shanghai" -d --restart=always --name tams -p 8081:8080  project/tams</p>
+    <p>（或者：：docker run --name tams -p 8081:8080  tams）</p>
+</div>
+
+
+<div class="code">
+    <p>5，查看日志：docker logs --tail  300 -f  tams</p>
+</div></div>
+                <h4>2022-01-19 18:50:52</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

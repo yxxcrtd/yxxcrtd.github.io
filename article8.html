@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Git 基础</h2>
+                <p class="title">一，Linux CentOS 下安装 Git</p>
+
+<p>1，安装依赖：yum -y install gcc perl-ExtUtils-MakeMaker curl-devel expat-devel gettext-devel openssl-devel zlib-devel</p>
+
+<p>2，下载：wget https://www.kernel.org/pub/software/scm/git/git-2.10.1.tar.gz</p>
+
+<p>3，解压：tar zxvf git-2.10.1.tar.gz</p>
+
+<p>4，进入：cd git-2.10.1</p>
+
+<p>5，编译：make prefix=/home/Git all</p>
+
+<p>6，安装：make prefix=/home/Git install</p>
+
+<p>7，添加环境变量：echo "export PATH=$PATH:/home/Git/bin" >> /etc/bashrc（在此文件上加一个：:/root/bin:/home/Git/bin）</p>
+
+<p>8，使环境变量生效：source /etc/bashrc</p>
+
+<p>9，验证：git --version，出现：git version 2.10.1，表示安装成功！(/home/Git/bin/git)</p>
+<br />
+
+
+<p class="title">
+二，Mac 下安装 Git
+</p>
+
+<p>1，brew install git</p>
+
+<p>2，验证：git --version，出现：git version 2.10.1，表示安装成功！</p>
+
+
+<br />
+
+
+<p class="title">
+    三，删除文件夹下的所有 .git 文件
+</p>
+<p>
+find . -name ".git"| xargs rm -Rf
+</p>
+
+<br />
+
+
+
+<p class="title">
+    四，升级后无法git，/usr/bin/git
+</p>
+<p>
+终端执行：xcode-select --install
+</p>
+
+<br />
+
+
+
+<p class="title">
+    五，在用户文件夹下 定义一个全局的 Git 忽略文件：.gitignore_global
+</p>
+
+<div class="code">
+    <p>
+        *~
+    </p>
+    <p>
+        .DS_Store
+    </p>
+    <p>
+        _CodeGenerateController.java
+    </p>
+    <p>
+        src/main/webapp/WEB-INF/ftl/_code
+    </p>
+    <p>
+        ......
+    </p>
+</div>
+
+<br />
+
+
+
+
+<p class="title">
+    六，用户文件夹下的 Git 配置文件：.gitconfig
+</p>
+<p style="text-align: center;">
+    <a href="images/article/article8.01.png" data-fancybox>
+        <img src="images/article/article8.01.png" width="835" />
+    </a>
+</p>
+
+<br />
+
+
+
+
+
+<p class="title">七，用户文件夹下的 Git 配置文件：.gitflow_export</p>
+<p>export FLAGS_GETOPT_CMD=/Applications/Sourcetree.app/Contents/Resources/bin/getopt</p>
+<br />
+
+
+
+<br />
+<p style="text-align: center;">
+    <a href="images/article/article8.02.png" data-fancybox>
+        <img src="images/article/article8.02.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">八，SourceTree 中项目加入 Git Flow</p>
+<p>1，仓库初始化：点 SourceTree 中右上角的 Git Flow -> OK</p>
+<p>2，再点右上角的 Git Flow -> Start a New Feature -> 填写 Feature 名称（Feature 只与 develop 分支交互）</p>
+<p>3，Feature 完成后，先把 develop 合并到当前 Feature 分支（如果有冲突，要先解决冲突），再点右上角的 Git Flow -> 完成功能 -> 此时会合并到 develop（推荐勾选：删除当前 Feature 分支）</p>
+<br />
+
+
+<p class="title">九，Git Flow 在 完成功能的时候出现错误：fatal: could not read Username for 'https://gitee.com': No such file or directory</p>
+<p>1，进入命令行模式，执行：<div class="code"><p>git flow feature finish -k 功能名称</p></div></p>
+<br />
+
+
+<p class="title">九，安装：SourceTree</p>
+<p>1，下载 SourceTree：<a href="https://www.sourcetreeapp.com" target="_blank">https://www.sourcetreeapp.com</a></p>
+<p>2，安装 SourceTree：需要有 Atlassia 的账户</p>
+<p>3，在本地生成公钥和私钥：打开 SourceTree 右上角的终端：ssh-keygen，全部回车
+<div class="code"><p>ssh-keygen</p></div>
+</p>
+<p>4，将 cat ~/.ssh/id_rsa.pub 中的内容拷贝到 GitLab 的 Profile Settings -> SSH Keys 中，点一下 Title，保存
+<div class="code"><p>cat ~/.ssh/id_rsa.pub</p></div>
+</p>
+<p>5，授权（1，输入：yes，出现：Welcome to GitLab, @young!，说明你已经有访问 GitLab 的权限；2，默认的端口参数-p 22可以不加）
+<div class="code">
+    <p>ssh -T -p 22 git@192.168.1.8</p>
+</div>
+</p>
+<p>6，如果 GitLab 服务器上的 22 端口不能使用，则需要在本地的 .ssh 文件中添加一个 config 文件，内容如下：（上面的授权需要添加端口参数）</p>
+<div class="code">
+   <p> Host 192.168.1.8</p>
+   <p> Hostname 192.168.1.8</p>
+   <p> Port 10222</p>
+</div>
+<p>7，在 SourceTree 中配置连接 GitLab，下载代码</p>
+<br />
+
+
+<p class="title">十，Mac 下安装 SourceTree</p>
+<p><div class="code"><p>brew cask install sourcetree</p></div></p>
+<br />
+
+
+<p class="title">十一，，添加本地已有项目到 GitHub</p>
+<p>1，首先在 GitHub 上创建一个项目：https://github.com/yxxcrtd/<span class="red">demo</span>（demo就是你创建的项目名称）</p>
+<p>2，打开 SourceTree -> 项目列表 -> 新建 -> 添加已经存在的本地仓库 -> 选择已有的仓库文件夹 -> 打开</p>
+<p>3，双击 demo -> 右上角 -> 设置 -> 远程仓库 -> 添加 -> 远程（仓库）名称：<span class="red">origin</span> -> URL/路径：<span class="red">git@github.com:yxxcrtd/demo.git</span> -> 确定</p>
+<p style="text-align: center;">
+    <a href="images/article/article8.03.png" data-fancybox>
+        <img src="images/article/article8.03.png" width="835" />
+    </a>
+</p>
+<p>5，提交代码</p>
+<br />
+                <h4>2021-11-10 08:19:28</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

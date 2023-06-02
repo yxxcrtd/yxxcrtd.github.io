@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>MySQL 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        MySQL是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，是最流行的关系型数据库管理系统之一。
+                    </p>
+                </div>
+                <div><p class="title">一，Linux CentOS 6 下的安装</p>
+<p>1，安装：yum -y install mysql mysql-server mysql-devel</p>
+<p>2，修改字符集：vim /etc/my.cnf，在[mysqld]中添加：default-character-set=utf8</p>
+<p>3，设置开机启动：chkconfig mysqld on</p>
+<p>4，启动服务：/etc/rc.d/init.d/mysqld start（service mysqld status / start / stop）</p>
+<p>5，检验字符集：show variables like 'character_set_%';   show variables like 'collation_%';</p>
+<p>6，设置 root 密码：mysql -u root，设置密码：set password for root@localhost=password('123456');</p>
+<br />
+
+
+<p class="title">二，Linux CentOS 6.5 下的安装 5.7.22</p>
+<p>1，到 MySQL官网下载页面：<a href="https://www.mysql.com/downloads/" target="_blank">https://www.mysql.com/downloads/</a>，下面找到：MySQL Community (GPL) Downloads >>，再点击：MySQL Community Server</p>
+<p>2，选择：Archives</p>
+<p>3，选择：Product Version：5.7.22</p>
+<p>4，选择：Operating System：Linux Generic</p>
+<p>5，选择：OS Version：Linux - Generic (glibc 2.12) (x86, 64-bit)</p>
+<p>6，下载：mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz</p>
+<p>7，创建 mysql 组：groupadd mysql</p>
+<p>8，创建用户：useradd -r -g mysql mysql（-r 表示 mysql 用户是一个系统用户，不能登录）</p>
+<p>9，解压到：/usr/local：tar zxvf mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz<span class="red"> -C /usr/local</span></p>
+<p>10，cd /usr/local</p>
+<p>11，重命名：mv mysql-5.7.22-linux-glibc2.12-x86_64/ mysql</p>
+<p>12，cd mysql</p>
+<p>13，创建 mysql-files 数据目录：mkdir -p /usr/local/mysql/mysql-files</p>
+<p>14，授权：chown -R mysql:mysql /usr/local/mysql/mysql-files/</p>
+<p>15，再授权：chmod 750 /usr/local/mysql/mysql-files/</p>
+<p>16，初始化数据库：bin/mysqld --initialize --user=mysql，注意最后一行：[Note] A temporary password is generated for root@localhost: <span class="red">YR()u=uy/6-X（这是 root 的默认密码）</span></p>
+<p>17，生成 RSA 私钥：bin/mysql_ssl_rsa_setup</p>
+<p>18，bin/mysqld_safe --user=mysql &</p>
+<p>19，使用 service 服务控制 mysql：cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</p>
+<p>20，授权：chmod +x /etc/init.d/mysql</p>
+<p>21，增加开机服务：chkconfig --add mysql（查看方法：chkconfig --list mysql）</p>
+<p>22，使用 service 方式启动服务：service mysql start</p>
+<p>23，进入数据库：cd bin，./mysql -u root -p，会出现错误：ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)</p>
+<p>24，从根下寻找：mysql.sock：find / -name mysql.sock</p>
+<p>25，把查找的结果软连接到/tmp目录下：ln -s /var/lib/mysql/mysql.sock /tmp</p>
+<p>26，再次登录：./mysql -u root -p，输入上面 root 的临时密码</p>
+<p>27，修改 root 密码：alter user 'root'@'localhost' identified by '123456';</p>
+<p>28，设置可以远程连接：grant all privileges on *.* to root@'%' identified by '123456';</p>
+<p>29，刷新：flush privileges;</p>
+<p>30，查看：select host, user from mysql.user;</p>
+<br />
+
+
+<p class="title">三，Linux CentOS 7.5 下的安装 8.0.22</p>
+<p>1，到 MySQL官网下载页面：<a href="https://www.mysql.com/downloads/" target="_blank">https://www.mysql.com/downloads/</a>，下面找到：MySQL Community (GPL) Downloads >>，再点击：MySQL Community Server</p>
+<p>2，Select Operating System：Red Hat Enterprise Linux / Oracle Linux</p>
+<p>3，Select OS Version：Red Hat Enterprise Linux 7 / Oracle Linux 7 （x86，64-bit）</p>
+<p>4，然后选择下面的：RPM Bundle 后面的 Download（bundle 里面有各种MySQL的依赖）。最终的下载地址，可以拷贝到服务器上 wget：<div class="code"><p>wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.22-1.el7.x86_64.rpm-bundle.tar</p></div></p>
+<p>5，解压：<div class="code"><p>tar -xvf mysql-8.0.22-1.el7.x86_64.rpm-bundle.tar</p></div></p>
+<p>6，清除之前的依赖、安装新依赖、client、server：
+    <div class="code">
+        <p>yum -y remove mysql-libs</p>
+        <p>rpm -ivh mysql-community-common-8.0.22-1.el7.x86_64.rpm</p>
+        <p>rpm -ivh mysql-community-libs-8.0.22-1.el7.x86_64.rpm</p>
+        <p>rpm -ivh mysql-community-client-plugins-8.0.22-1.el7.x86_64.rpm</p>
+        <p>rpm -ivh mysql-community-client-8.0.22-1.el7.x86_64.rpm</p>
+        <p>rpm -ivh mysql-community-server-8.0.22-1.el7.x86_64.rpm</p>
+    </div>
+</p>
+<p>7，查看是否安装成功：<div class="code"><p>ps -ef | grep mysql</p><p><span class="comment">会出现：root      6378 13152  0 10:16 pts/0    00:00:00 grep --color=auto mysql</span></p></div></p>
+<p>8，初始化数据库：<div class="code"><p>mysqld --initialize</p><p>如果不区分表名的大小写：mysqld --initialize</p></div></p>
+<p>9，修改权限：<div class="code"><p>chown -R mysql:mysql /var/lib/mysql/</p></div></p>
+<p>10，启动数据库：<div class="code"><p>systemctl start mysqld</p></div></p>
+<p>11，查看初始化密码：<div class="code"><p>cat /var/log/mysqld.log | grep password</p></div></p>
+<p>12，登录数据库并修改密码：<div class="code"><p>alter user 'root'@'localhost' identified by '123456'; </p></div></p>
+<p>13，重启数据库：<div class="code"><p>systemctl restart mysqld</p></div></p>
+<p>14，端口放行：<div class="code"><p>firewall-cmd --zone=public --add-port=3306/tcp --permanent</p><p>firewall-cmd --reload</p><p>验证：firewall-cmd --list-ports</p></div></p>
+<p>15，设置可以远程连接：<div class="code"><p>1，登录数据库</p><p>2，use mysql; </p><p>3，update user set host = '%'  where user ='root'; </p><p>4，flush privileges; </p></div></p>
+<br />
+
+
+
+
+
+<p class="title">三，Mac 下的安装</p>
+<p>1，安装：brew install mysql</p>
+<p>2，启动：brew services start mysql</p>
+<p>3，配置：mysql_secure_installation（设置密码等）</p>
+<p>4，登录：mysql -uroot -p</p>
+<br />
+
+
+<p class="title">四， rpm 方式安装</p>
+<p>1，先检查自带的 mysql：yum list installed | grep mysql</p>
+<p>2，卸载：yum -y remove mysql-libs.x86-64</p>
+<p>3，下载：rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm</p>
+<p>4，查看下载的源：yum repolist all | grep mysql</p>
+<p>5，先安装 yum 管理工具，再关闭不需要的源：yum -y install yum-utils</p>
+<p>6，关闭5.5的源：yum-config-manager --disable mysql55-community</p>
+<p>7，关闭5.6的源：yum-config-manager --disable mysql56-community</p>
+<p>8，打开5.7的源：yum-config-manager --enable mysql57-community-dmr</p>
+<p>9，安装：yum -y install mysql-community-server</p>
+<p>10，启动：service mysqld start，出现：Initializing MySQL database: [OK]共3个，表示初始化数据库成功</p>
+<p>11，如果出现错误1：[Warning] TIMESTAMP with implicit DEFAULT value is deprecated...，vim /etc/my.cnf，添加：explicit_defaults_for_timestamp=true</p>
+<p>12，如果出现错误2：[ERROR] --initialize specified but the data directory has files in it. Aborting...，rm -rf /var/lib/mysql/*</p>
+<p>13，只要服务启动成功后（其实就是初始化数据库），再停止服务：service mysqld stop</p>
+<p>14，进入安全模式：mysqld_safe --skip-grant-tables& - mysql - use mysql</p>
+<p>15，重新打开一个终端，进入数据库：mysql -u root，进入mysql数据库，修改密码：UPDATE user SET authentication_string=password("123456") WHERE user="root";flush privileges;</p>
+<p>16，退出数据库，再次登录：mysql -u root -p</p>
+<p>17，再次设置密码：SET PASSWORD=PASSWORD('123456');</p>
+<p>18，重启服务：service mysqld restart</p>
+<br />
+
+
+
+<p class="title">五，源代码方式安装</p>
+<p>1，下载：wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.13.tar.gz</p>
+<p>2，先检查：rpm -qa | grep mysql</p>
+<p>3，如果有就删除：yum -y remove mysql...*</p>
+<p>4，安装依赖：yum -y install make gcc-c++ cmake bison-devel ncurses-devel</p>
+<p>5，解压：tar xvf mysql-5.7.13.tar.gz</p>
+<p>6，进去：cd mysql-5.7.13</p>
+<p>7，CMAKE：cmake -DCMAKE_INSTALL_PREFIX=/root/mysql-5.7.13 -DMYSQL_DATADIR=/mysqlData/data  -DSYSCONFDIR=/usr/local/mysql  -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock -DMYSQL_TCP_PORT=3306 -DENABLED_LOCAL_INFILE=1 -DENABLE_DOWNLOADS=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_DEBUG=0 -DMYSQL_MAINTAINER_MODE=0 -DWITH_SSL:STRING=bundled -DWITH_ZLIB:STRING=bundled  -DWITH_BOOST=boost</p>
+<p>8，编译：make</p>
+<p>9，编译安装：make install</p>
+<p>10，检查是否有mysql用户：cat /etc/passwd</p>
+<p>11，检查是否有mysql用户组：cat /etc/group</p>
+<p>12，如果没有就创建：groupadd mysql、useradd -g mysql mysql</p>
+<p>13，修改权限：chown -R mysql:mysql /home/MySQL</p>
+<p>14，进入/home/MySQL，执行初始化配置脚本并创建系统自带的数据库和表：scripts/mysql_install_db --basedir=/home/MySQL --datadir=/home/MySQL/data --user=mysql</p>
+<p>15，拷贝mysql服务到init.d目录：cp support-files/mysql.server /etc/init.d/mysql</p>
+<p>16，设置开机启动：chkconfig mysqld on</p>
+<p>17，开启服务：/etc/rc.d/init.d/mysqld start（service mysqld start、service msyqld status、service mysqld stop）</p>
+<p>18，设置root密码：mysql -u root，设置密码：set password for root@localhost=password('123456');</p>
+<p>19，添加远程登录：grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;flush privileges;</p>
+<p>20，设置环境变量：</p>
+<div class="code">
+    <p>1：编辑环境变量：vim /etc/profile</p>
+    <p>2：直接在JDK的PATH后添加，即：export PATH=$PATH:$JAVA_HOME/bin:/home/MySQL/bin:$PATH</p>
+    <p>3：让环境变量生效：source /etc/profile</p>
+</div>
+<br />
+
+
+
+<p class="title">六，Docker 下安装 MySQL</p>
+<p>1，安装：<div class="code"><p>docker pull mysql</p></div></p>
+<p>2，创建需要的文件目录：<div class="code"><p>mkdir /home/docker/mysql/{conf.d,data,log} -pv -m 777</p></div></p>
+<p>3，启动：
+<div class="code">
+        <p>docker run -p 13306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /home/docker/mysql/data:/var/lib/mysql:rw -v /home/docker/mysql/log:/var/log/mysql:rw -v /home/docker/mysql/config/my.cnf:/etc/mysql/my.cnf:rw -v /etc/localtime:/etc/localtime:ro --name mysql --restart=always -d mysql</p>
+    </div>
+</p>
+<br />
+
+
+
+<p class="title">七，备份与还原</p>
+<p>1，备份：mysqldump -h127.0.0.1 -u root -p mysql > /root/Desktop/db.sql;</p>
+<p>2，还原：source /root/Desktop/db.sql;</p>
+<br />
+
+
+
+<p class="title">八，忘记密码</p>
+<p>1，关闭服务：service mysqld stop</p>
+<p>2，进入安全模式：mysqld_safe --user=root --skip-grant-tables</p>
+<p>3，进入数据库：msyql -u root -p</p>
+<p>4，进入mysql库：use mysql</p>
+<p>5，重置密码：update user set password=password("123456") where user="root";</p>
+<p>6，flush： flush privileges;</p>
+<br />
+
+
+
+<p class="title">九，让MySQL不区分大小写</p>
+<p>1，检查：show variables like "%case%"; lower_case_table_names = 0 区分；1/2 不区分（1-Windows；2-Mac）</p>
+<p>2，设置：vim /etc/my.cnf，添加：lower_case_table_names=1</p>
+<br />
+
+
+
+<p class="title">十，设置远程登录</p>
+<p>1，grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;</p>
+<p>2，flush privileges;</p>
+<br />
+
+
+
+<p class="title">十一，创建数据库</p>
+<p>1，CREATE DATABASE jira DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci</p>
+<p>2，验证：show create database jira; 如果出现utf8mb4，OK。</p>
+<p>3，创建新用户，并授权只能访问刚刚创建的数据库：grant all privileges on test.* to 'test'@'%' identified by '123456' with grant option;</p>
+<p>4，flush privileges;</p>
+<br />
+
+
+
+<p class="title">十二，MySQL 5.6 修改密码</p>
+<p>1，update user set password=password(‘123456’) where user=’root’;</p>
+<p>2，flush privileges;</p></div>
+                <h4>Posted: 2022-03-29 09:53:30</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

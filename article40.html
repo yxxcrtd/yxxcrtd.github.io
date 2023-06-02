@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Spring Boot 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        Spring Boot 基础
+                    </p>
+                </div>
+                <div><p class="title">一，Mac 下加速启动</p>
+<p>1，Mac 下默认启动会出现：InetAddress.getLocalHost().getHostName() took 5004 milliseconds to respond. Please verify your network configuration (macOS machines may need to add entries to /etc/hosts).</p>
+<p>2，在终端查看本机的主机名：<span class="red">hostname</span></p>
+<p>3，添加到环境变量：<span class="red">vim /etc/hosts</span></p>
+<div class="code">
+    <p> 127.0.0.1   &nbsp;&nbsp;&nbsp;&nbsp;    localhost   &nbsp;&nbsp;&nbsp;&nbsp;    young.local</p>
+</div>
+<p>4，再次启动会由之前的22-25秒减少到6-10秒！</p>
+<br />
+
+
+
+<p class="title">二，在 Spring Boot 日志中显示：1，SQL语句显示实参；2，用表格形式显示返回结果；3，显示SQL语句的执行时间</p>
+<p>1，添加依赖</p>
+<p>
+    <a href="images/article/article40.01.png" data-fancybox>
+        <img src="images/article/article40.01.png" width="835" />
+    </a>
+</p>
+
+<p>2，没有任何配置的运行效果</p>
+<p>
+    <a href="images/article/article40.02.png" data-fancybox>
+        <img src="images/article/article40.02.png" width="835" />
+    </a>
+</p>
+
+<p>3，增加配置（参考GitHub：<a href="https://github.com/candrews/log4jdbc-spring-boot-starter" target="_blank">https://github.com/candrews/log4jdbc-spring-boot-starter</a>）</p>
+<p>
+    <a href="images/article/article40.03.png" data-fancybox>
+        <img src="images/article/article40.03.png" width="835" />
+    </a>
+</p>
+
+<p>4，增加配置后的运行效果</p>
+<p>
+    <a href="images/article/article40.04.png" data-fancybox>
+        <img src="images/article/article40.04.png" width="835" />
+    </a>
+</p>
+<br /></div>
+                <h4>Posted: 2022-02-12 19:27:09</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

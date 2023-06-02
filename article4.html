@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>IntelliJ IDEA Community 基本设置与使用</h2>
+                <p class="title">一，基本设置</p>
+
+<p>1，添加 JDK：File -> Project Structure  -> SDKs</p>
+
+<p>2，修改字体：Editor -> Font</p>
+
+<p>3，控制台字体：Editor -> Color Scheme -> Console Font</p>
+
+<p>4，import 同一个包超过5个不显示*：Editor -> Code Style -> Java -> Imports -> Class count to use <span class="red">static</span> import with '*': 改成：50/30</p>
+
+<p>5，自动编译：Build, Execution, Deployment -> Compiler ->  勾选Make project automatically</p>
+
+<p>6，鼠标移上提示注释或文档：Editor -> General -> Show quick documentation on mouse move Delay (ms) 500</p>
+
+<p>7，自动 Import：General -> Auto Import ，Java项都打勾</p>
+
+<p>8，代码不折叠：Editor -> General -> Code Folding -> General 和 Java</p>
+
+<p>9，提示不区分大小写：Editor -> General -> Code Completion -> Match case: All letters</p>
+
+<p>10，设置自动编译：Build, Execution, Deployment -> Compiler -> Make project automatically</p>
+
+<p>11，过滤不显示的后缀：Editor -> File Types 添加一个后缀即可，如：*.iml;</p>
+
+<p>12，去掉参数的提示：Editor -> Inlay Hints -> Parameter hints -> Show parameter hints for</p>
+
+<p>13，显示滚动条：Editor -> General -> Soft Wraps -> Use soft wraps in editor</p>
+
+<p>14，更换默认的Terminal：/bin/bash -> /bin/zsh</p>
+
+<p>15，修改 ifn inn ：Editor -> Live Templates -> other ...</p>
+
+<p>16，浏览器预览：Tools -> Web Browsers</p>
+
+<p>17，启动错误：OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended，解决方法：Build ... -> Debugger -> Async Stack Traces -> 去掉勾选：Instrumenting agent ...</p>
+
+<p>18，去除 Method is never used： Editor -> Inspectons -> Unused declaration</p>
+
+<p>19，自动生成 serialVersionUID：Editor -> Inspectons -> Java -> Serialization issues -> 将 Serialzable class without ‘serialVersionUID’ 打上勾；（类要： implements Serializable，然后将光标放到类名上，按 atl＋enter 键，就会提示生成serialVersionUID了。）</p>
+
+<p>20，svn 关闭或打开 Update Project ：Version Control -> Confirmation -> When files are created （Add silently 是打开；Do not add 是关闭）</p>
+
+<p>21，启动的时候显示项目列表：Editor -> Appearance & Behavior -> Reopen projects on startup</p>
+
+<p>22，IDEA 没有代码提示或报错提示：菜单栏  -> File  -> 去掉 Power Save Mode 的勾选</p>
+
+<p>23，IDEA 去掉拼写检查，或者添加自定义的单词：Editor -> Spelling  -> Accepted Words</p>
+
+<p>24，关闭左侧文件后面跟随的创建时间、文件大小和修改时间：菜单上 View -> Appearance  -> Details in Tree View</p>
+
+<p>25，IDEA 控制台取消行数限制：将安装目录 bin 下的 idea.properties 文件中 idea.cycle.buffer.size=1024 改成：disabled，重启。</p>
+
+<p>26，使用 Jrebel Debug 调试卡死：Command + option + shift + / -> registry -> debugger.jb.jdi</p>
+
+<p>27，不把单行注释放在行数的最开头：Editor -> Code Style -> Java -> Code Generation -> 去掉 Line comment at first column 勾选（勾选：Add a space at comment start，在反双斜线后面加一个空格）</p>
+
+<p>28，增加 Tab 个数：Editor -> General -> Editor Tabs</p>
+
+<p>29，IDEA 2020.3 lombok 问题：Build, Execution, Deployment -> Compiler -> Shared build process VM options: 添加：<span class="red">-Djps.track.ap.dependencies=false</span></p>
+
+<p>30，字体随鼠标滚动缩放：Editor -> General -> Mouse Control -> Change font size with Ctrl+Mouse Wheel</p>
+<br />
+
+
+<p class="title">二，安装插件：JRebel 和 XRebel（2020.1.0版本中已经添加了：XRebel）</p>
+<p>1，激活 Team URL：https://jrebel.qekang.com/06b5c57d-457b-4fb8-a69e-3fc6d83ce38d（复制粘贴后，修改 UUID 中任意一个或多个字符）</p>
+<p>2，输入任意邮件地址，需要验证</p>
+<p>3，启动：Run -> Active Rebel agent is JRebel. Specify ... > 选择需要使用的插件</p>
+<br/>
+
+
+<p class="title">三，系统升级后，IDEA无法打开的解决方法</p>
+<p>出现错误：“IntelliJ IDEA CE.app” is damaged and can’t be opened. You should move it to the Trash.</p>
+<p>方法1：sudo spctl --master-disable 或 sudo spctl --master-enable</p>
+<p>方法2：sudo xattr -cr /Applications/IntelliJ\ IDEA\ CE.app（输入完Applications/后，输入In 按 tab 健后即可出来）</p>
+<br />
+                <h4>2021-11-07 07:51:44</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

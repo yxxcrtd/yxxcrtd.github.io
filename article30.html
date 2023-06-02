@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Java 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        Java 常用的基础操作
+                    </p>
+                </div>
+                <div><p class="title">一，返回 Json 格式的数据</p>
+<div class="code">
+    <p>JSONObject jsonObject = new JSONObject();</p>
+    <p>jsonObject.put("a", ”123“);</p>
+    <p>return jsonObject</p>
+</div>
+<br />
+
+
+<p class="title">二，ConcurrentHashMap 中的 putIfAbsent 方法的使用以及返回值的含义</p>
+<p>1，如果是新的记录，那么会向map中添加该键值对，并返回null。</p>
+<p>2，如果已经存在，那么不会覆盖已有的值，直接返回已经存在的值。</p>
+<br /></div>
+                <h4>2022-01-19 18:51:29</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

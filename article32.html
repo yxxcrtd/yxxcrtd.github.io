@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Spring Boot 基于 JPA 封装的泛型 BaseService 和 BaseServiceImpl</h2>
+                <p class="title">一，普通的 Service 继承 BaseService</p>
+<div class="code">
+    <p>public interface UserService extends BaseService<User, Long> { ...</p>
+</div>
+<br />
+
+<p class="title">二，普通的 ServiceImpl 继承 BaseServiceImpl</p>
+<div class="code">
+    <p>public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService { ...</p>
+</div>
+<br />
+
+<p class="title">三，BaseService.java</p>
+<p>
+    <a href="images/article/article32.01.png" data-fancybox>
+        <img src="images/article/article32.01.png" width="835" />
+    </a>
+</p>
+<br />
+
+<p class="title">四，BaseServiceImpl.java</p>
+<p>
+    <a href="images/article/article32.02.png" data-fancybox>
+        <img src="images/article/article32.02.png" width="835" />
+    </a>
+</p>
+                <h4>2021-11-07 09:58:05</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

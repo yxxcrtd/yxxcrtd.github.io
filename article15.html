@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>About GitHub</h2>
+                <p class="title">一，解决 GitHub 授权的问题</p>
+<p>1，检查 SSH keys，如果之前有的话，最好都删除，再将本地的 id_rsa.pub 重新上传上去</p>
+<p>2，测试：
+    <div class="code">
+        <p>ssh -T git@github.com</p>
+        <p>出现：<span class="red">Hi 用户名!</span> You've successfully authenticated, but GitHub does not provide shell access. 表示成功了！</p>
+    </div>
+</p>
+<p>3，现在使用 SourceTree 测试</p>
+<p>4，或者使用命令：<div class="code"><p>git clone git@github.com: 用户名/******.git</p></div></p>
+<br />
+
+
+<p class="title">二，Please make sure you have the correct access rights and the repository exists.</p>
+<p>1，删除 .ssh 文件夹</p>
+<p>2，重新生成密钥和公钥：
+    <div class="code">
+        <p>ssh-keygen -t rsa -C "邮箱"，全部回车</p>
+        <p>ssh-keygen</p>
+    </div>
+</p>
+<p>3，拷贝 id_rsa.pub 内容到 GitHub 的 SSH keys</p>
+<p>4，测试：<div class="code"><p>ssh -T git@github.com</p></div></p>
+<br />
+                <h4>2021-11-07 07:51:01</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

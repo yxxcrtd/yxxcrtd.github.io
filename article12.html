@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Nginx 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        Nginx("engine x")是一款是由俄罗斯的程序设计师 Igor Sysoev 所开发高性能的 Web 和 反向代理 服务器，它的特点：安装简单、配置文件简洁、Bug 少、启动容易、几乎7*24不间断运行、几乎不需要重启。
+                    </p>
+                </div>
+                <div><p class="title">一，Linux 6,7 下的安装依赖</p>
+<div class="code">
+    <p>yum -y install pcre-devel openssl openssl-devel libssl-dev gcc-c++</p>
+</div>
+<br />
+
+
+<p class="title">二，安装 pcre，让 Nginx 支持 Rewrite 功能</p>
+<div class="code">
+    <p>0，pcre 地址：<a href="https://sourceforge.net/projects/pcre/" target="_blank">https://sourceforge.net/projects/pcre/</a></p>
+    <p>1，下载：wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.44.tar.gz</p>
+    <p>2，解压：tar zxvf pcre-8.44.tar.gz</p>
+    <p>3，进入：cd pcre-8.44</p>
+    <p>4，配置：./configure</p>
+    <p>5，编译：make</p>
+    <p>6，安装：make install</p>
+    <p>7，验证：pcre-config --version，会出现：8.44，表示安装成功！</p>
+</div>
+<br />
+
+
+<p class="title">三，Linux CentOS 6 安装 Nginx</p>
+<div class="code">
+    <p>1，下载：wget http://nginx.org/download/nginx-1.16.1.tar.gz</p>
+    <p>2，解压：tar zxvf nginx-1.16.1.tar.gz</p>
+    <p>3，进入：cd nginx-1.16.1</p>
+    <p>4，配置：./configure（可以加上：--with-http_stub_status_module --with-http_ssl_module --with-pcre=/usr/local/src/pcre-8.44）</p>
+    <p>5，编译：make</p>
+    <p>6，安装：make install</p>
+    <p>7，验证：/usr/local/nginx/sbin/nginx -t，出现：nginx: ... syntax is ok ... test is successful ，表示安装成功！</p>
+    <p><span class="comment">如果出现错误：/usr/local/nginx/sbin/nginx: error while loading shared libraries: libpcre.so.1: cannot open shared object file: No such file or directory</span></p>
+    <p><span class="comment">解决方法：ln -s /lib64/libpcre.so.0.0.1 /lib64/libpcre.so.1</span></p>
+</div>
+<br />
+
+
+<p class="title">四，Linux CentOS 7 安装 Nginx</p>
+<div class="code">
+    <p>1，添加 yum 源：rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</p>
+    <p>2，安装：yum -y install nginx</p>
+    <p>3，启动：systemctl start nginx</p>
+    <p>4，开机自启动：systemctl enable nginx</p>
+    <p>5，重启服务：systemctl restart nginx</p>
+    <p>6，重新加载配置：systemctl reload nginx</p>
+    <p>7，配置文件：vim /etc/nginx/nginx.conf</p>
+    <p>8，默认配置文件：/etc/nginx/conf.d/default.conf</p>
+    <p>9，检查配置文件：/usr/sbin/nginx -t</p>
+</div>
+<br />
+
+
+<p class="title">四，验证 Nginx</p>
+<div class="code"><p>nginx -V</p></div>
+<br />
+
+
+<p class="title">五，Docker 安装 Nginx</p>
+<p>1，Docker 下载镜像</p>
+<p><div class="code"><p>docker pull nginx</p></div></p>
+
+<p>2，在宿主机上创建 Nginx 配置需要的4个文件夹和 nginx.conf 文件</p>
+<p><div class="code"><p>mkdir -pv /home/docker/nginx/{conf,conf.d,html,log} -m 777</p></div></p>
+
+
+<p>3，使用 Docker 启动 Nginx</p>
+<p>
+    <div class="code">
+        <p>docker run --name nginx --restart always -dp 80:80 -v /home/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /home/docker/nginx/log:/var/log/nginx -v /home/docker/nginx/html:<span class="red">/etc/nginx/html/</span> nginx</p>
+        <p><span class="comment">注意1：run 创建并运行一个容器</span></p>
+        <p><span class="comment">注意2：--name nginx 使用的镜像名称</span></p>
+        <p><span class="comment">注意3：最后的 nginx 是容器名称</span></p>
+        <p><span class="comment">注意4：静态文件夹映射的地址不是：/usr/share/nginx/html/</span></p>
+    </div>
+</p>
+<br />
+
+
+<p class="title">六，配置</p>
+<p>1，启动服务：/usr/local/nginx/sbin/nginx</p>
+<p>2，关闭服务：/usr/local/nginx/sbin/nginx -s stop</p>
+<p>3，重启服务：/usr/local/nginx/sbin/nginx -s reload</p>
+<p>4，加入系统服务：vim /etc/rc.local，添加：/usr/local/nginx/sbin/nginx</p>
+<p>5，在 /usr/local/nginx/conf 中创建：gzip.conf</p>
+<div class="code">
+    <p>gzip on;</p>
+    <p>gzip_min_length 1k;</p>
+    <p>gzip_buffers 4 16k;</p>
+    <p>gzip_types text/plain text/css application/x-javascript;</p>
+    <p>output_buffers 1 64k;</p>
+    <p>postpone_output 1460;</p>
+</div>
+<p>6，在 /usr/local/nginx/conf 中创建：proxy.conf</p>
+<div class="code">
+    <p>proxy_redirect off;</p>
+    <p>proxy_set_header Host $host;</p>
+    <p>proxy_set_header X-Real-IP $remote_addr;</p>
+    <p>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</p>
+    <p>client_max_body_size 10m; #文件上传大小限制</p>
+    <p>client_body_buffer_size 256k;</p>
+    <p>proxy_connect_timeout 300;</p>
+    <p>proxy_send_timeout 300;</p>
+    <p>proxy_read_timeout 300;</p>
+    <p>proxy_buffer_size 16k;</p>
+    <p>proxy_buffers 4 32k;</p>
+    <p>proxy_busy_buffers_size 64k;</p>
+    <p>proxy_temp_file_write_size 64k;</p>
+</div>
+<br />
+
+
+<p class="title">七，最精简的 nginx.conf</p>
+<p>
+    <a href="images/article/article12.01.png" data-fancybox>
+        <img src="images/article/article12.01.png" width="800" />
+    </a>
+</p>
+<p>2，CentOS 7 配置文件服务器</p>
+<div class="code">
+    <p>vim /etc/nginx/conf.d/default.conf</p>
+    <div class="code"><p class="comment">1，在 location 中增加3个：autoindex 配置；2，修改 root 的目录</p><p>autoindex on;</p><p>autoindex_exact_size on;</p><p>autoindex_localtime on;</p><p>root   /home/wwwfile</p></div>
+    <div class="code"><p class="comment">关闭 SElinux</p><p>setenforce 0</p></div>
+</div>
+<br />
+
+
+<p class="title">八，Nginx 负载均衡配置：</p>
+<div class="code">
+    <p>upstream test {</p>
+    <p class="indent">server localhost:8080;</p>
+    <p class="indent">server localhost:8081;</p>
+    <p>}</p>
+
+<p>server {</p>
+    <p class="indent">listen       80;</p>
+    <p class="indent">server_name  localhost;</p>
+    <p class="indent">client_max_body_size 1024M;</p>
+  
+    <p class="indent">location / {</p>
+        <p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;proxy_pass http://test;</p>
+        <p class="indent">&nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header Host $host:$server_port;</p>
+    <p class="indent">}</p>
+<p>}</p>
+</div>
+<br />
+
+
+<br />
+<p style="text-align: center;">
+    <a href="images/article/article12.00.2.png" data-fancybox>
+        <img src="images/article/article12.00.2.png" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">九，Nginx 升级到 Tengine：</p>
+<p>1，下载：wget -c http://tengine.taobao.org/download/tengine-1.2.1.tar.gz</p>
+<p>2，解压：tar -zxvf tengine-1.2.1.tar.gz</p>
+<p>3，进入：cd tengine-1.2.1</p>
+<p>4，配置：./configure --prefix=/usr/local/nginx --without-http_autoindex_module --without-http_geo_module --without-http_map_module --without-http_browser_module --with-http_stub_status_module --with-http_realip_module --with-pcre=/root/pcre-8.36（注意：这里先下载并解压安装pcre）</p>
+<p>5，编译：make</p>
+<p>6，安装：make install</p>
+<p>7，拷贝：cp -r objs/nginx /usr/local/nginx/sbin/nginx</p>
+<p>8，验证：/usr/local/nginx/sbin/nginx -t</p>
+<p>9，重启服务：service nginx restart</p>
+<p>10，检查版本：/usr/local/nginx/sbin/nginx -V，第一行应该会出现：Tengine version: Tengine/1.2.1 (nginx/1.2.5)  ...</p>
+<br />
+
+
+<br />
+<p style="text-align: center;">
+    <a href="images/article/article12.00.3.png" data-fancybox>
+        <img src="images/article/article12.00.3.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">十，配置 https - 1，申请 https 证书</p>
+<p>1，腾讯云上申请（需要微信实名认证）</p>
+<p style="text-align: center;">
+    <a href="images/article/article12.00.31.png" data-fancybox>
+        <img src="images/article/article12.00.31.png" width="835" />
+    </a>
+</p>
+
+<p style="text-align: center;">
+    <a href="images/article/article12.00.32.png" data-fancybox>
+        <img src="images/article/article12.00.32.png" width="835" />
+    </a>
+</p>
+
+<p style="text-align: center;">
+    <a href="images/article/article12.00.33.png" data-fancybox>
+        <img src="images/article/article12.00.33.png" width="835" />
+    </a>
+</p>
+
+<p>添加一条域名解析</p>
+<p style="text-align: center;">
+    <a href="images/article/article12.00.34.png" data-fancybox>
+        <img src="images/article/article12.00.34.png" width="835" />
+    </a>
+</p>
+<p>下载对应的证书</p>
+<p style="text-align: center;">
+    <a href="images/article/article12.00.35.png" data-fancybox>
+        <img src="images/article/article12.00.35.png" width="835" />
+    </a>
+</p>
+
+<p>2，需要备案好的域名</p>
+<p>3，需要注册域名的邮箱</p>
+<br />
+
+
+<p class="title">十，配置 https - 2，在云服务器上打开443端口</p>
+<p>1，添加一个<span class="red">入站</span>规则</p>
+<p style="text-align: center;">
+    <a href="images/article/article12.02.png" data-fancybox>
+        <img src="images/article/article12.02.png" width="835" />
+    </a>
+</p>
+<br />
+
+<p class="title">十，配置 https - 3，配置 Nginx</p>
+<p>1，将 域名.crt 和 域名.key 拷贝到 服务器上固定目录，推荐Nginx配置文件的目录（以后用绝对路径引用）</p>
+<p>2，Nginx 配置文件位置：
+    <div class="code">
+        <p>6和7：/usr/local/nginx/conf/nginx.conf</p>
+        <p>8：/etc/nginx/nginx.conf</p>
+    </div>
+</p>
+<p>3，先备份 Nginx 配置文件：<div class="code"><p>cp /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak</p></div></p>
+<p>4，编辑 Nginx 配置文件：
+    <div class="code">
+        <p>1：打开 Nginx 配置文件：nginx.conf</p>
+        <p>2：配置 80 中的 server_name 为真实备案域名</p>
+        <p>3：打开 443 的注释</p>
+        <p>4：配置 443 中的 server_name 为真实备案域名</p>
+        <p>5：配置 ssl_certificate 中 crt 文件的绝对路径</p>
+        <p>6：配置 ssl_certificate_key 中 key 文件的绝对路径</p>
+    </div>
+</p>
+<p style="text-align: center;">
+    <a href="images/article/article12.03.png" data-fancybox>
+        <img src="images/article/article12.03.png" width="835" />
+    </a>
+</p>
+<br />
+
+
+<p class="title">十，配置 https - 4，其他配置：</p>
+<p>1，重启 Nginx：<div class="code"><p>systemctl restart nginx</p></div></p>
+<p>2，添加防火墙规则：<div class="code"><p>firewall-cmd --zone=public --add-port=443/tcp --permanent</p></div></p>
+<br /></div>
+                <h4>Posted: 2022-04-16 20:38:03</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>

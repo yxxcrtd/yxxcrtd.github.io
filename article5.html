@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="all" />
+        <meta name="keywords" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <meta name="description" content="黄麓、黄麓镇、书香黄麓、黄麓家园、黄麓网站" />
+        <title>书香黄麓</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.3.5.7.css" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 页面自适应 -->
+    </head>
+
+    <body>
+        <header id="header">
+            <nav>
+                <div id="logo"></div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="history">黄麓历史</a></li>
+                    <li><a href="landscape">黄麓风景</a></li>
+                    <li><a href="about" class="current">关于作者</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+            <div id="articleDetail">
+                <h2>Mac 基础</h2>
+                <div id="summary">
+                    <p>
+                        <span class="quote">“</span>
+                        Mac 环境下的 Java 开发
+                    </p>
+                </div>
+                <div><p class="title">一，新系统配置</p>
+<p>1，安装微信：打开 App Store ，搜索：微信</p>
+<p>2，Mac如何开启护眼模式：设置 -> Displays -> Night Shift</p>
+<p>3，安装 Homebrew：根据官网 <a href="https://brew.sh" target="_blank">https://brew.sh</a> 的提示安装：
+    <div class="code">
+        <p>/bin/bash -c "$(curl -fsSL http://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</p>
+        <p><div class="code"><p class="comment">可能需要安装：xcode-select --install</p></div></p>
+        <p>
+            <div class="code">
+                <p class="comment">如果出现：<br />curl: (7) Failed to connect to raw.githubusercontent.com port 80: Connection refuse</p>
+                <p class="comment">sudo vim /etc/hosts，添加：199.232.68.133  raw.githubusercontent.com</p>
+            </div>
+        </p>
+        <p>
+            <div class="code">
+                <p class="comment">如果出现下面错误：<br />error: Not a valid ref: refs/remotes/origin/master <br /> fatal: ambiguous argument 'refs/remotes/origin/master': unknown revision or path not in the working tree.</p>
+                <p class="comment">删除 .git 目录：rm -rf /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/.git/</p>
+            </div>
+        </p>
+    </div>
+</p>
+<p style="text-align: center;">
+    <a href="images/article/article5.00.png" data-fancybox>
+        <img src="images/article/article5.00.png" width="835" />
+    </a>
+</p>
+<p>4，电池显示百分比：设置 -> Dock & Menu Bar -> Battery -> Show Percentage</p>
+<p>5，时间显示24h格式：设置 -> Date & Time -> 解锁 -> Open Language & Region -> Time format（每周第一天设置：点右下角的 Advanced）</p>
+<p>6，打开双指右键：设置 -> Trackpad -> Secondary click -> Click or tap with two fingers</p>
+<p>7，三指取词：设置 -> Trackpad -> Look up & data detectors</p>
+<p>8，右上角的时间显示秒和语言报时：设置 -> Dock & Menu Bar -> Clock</p>
+<br />
+
+
+<p class="title">二，安装常用软件：</p>
+<p><div class="code"><p class="comment">Java 运行环境：</p><p>brew install java11</p></div></p>
+<p><div class="code"><p class="comment">代码编辑器：</p><p>brew install visual-studio-code</p></div></p>
+<p><div class="code"><p class="comment">Git 代码管理工具：</p><p>brew install sourcetree</p></div></p>
+<p><div class="code"><p class="comment">图片压缩工具：</p><p>brew install imageoptim</p></div></p>
+<p><div class="code"><p class="comment">PostgreSQL 数据库：</p><p>brew install postgresql</p></div></p>
+<p><div class="code"><p class="comment">数据库管理工具：</p><p>brew install --cask beekeeper-studio</p></div></p>
+<p><div class="code"><p class="comment">微信开发者工具：</p><p>brew install wechatwebdevtools</p></div></p>
+<p><div class="code"><p class="comment">Redis 与 Redis 客户端：</p><p>brew install redis</p><p>brew install another-redis-desktop-manager</p></div></p>
+<br />
+
+
+<p class="title">三，安装字体：</p>
+<p>Fira Code 字体是一种免费的适用于编程的等宽字体。使用它可以减少我们在编程时处理逻辑标记的脑力消耗。</p>
+<p><div class="code"><p>brew tap homebrew/cask-fonts</p></div></p>
+<p><div class="code"><p>brew install --cask font-fira-code</p></div></p>
+<p><div class="code"><p class="comment">VSCode 的 settings.json 中设置：</p><p>"editor.fontFamily": "Fira Code",</p><p>"editor.fontLigatures": false, // 是否启用字体连字，比如：-> 会转成 &rarr;</p></div></p>
+
+<p>
+    <div class="code">
+        <p class="comment">安装后即可删除字体的源：</p>
+        <p>cd /usr/local/Homebrew/Library/Taps/homebrew/</p>
+        <p>rm -rf homebrew-cask-fonts</p>
+    </div>
+</p>
+<br />
+    
+    
+
+<p class="title">四，常用命令：</p>
+<p>1，查看文件大小：du -sh *</p>
+<p>2，下载：curl -L -O http://…….tar.gz（解压：tar -vxf …….tar.gz）</p>
+<p>3，上传单个文件到服务器：scp test.html root@1.2.3.4:/home</p>
+<p>4，上传整个目录到服务器：scp -r test root@1.2.3.4:/home</p>
+<p>5，从服务器下载单个文件：scp root@1.2.3.4:/home/test.html /Users/young/Desktop</p>
+<p>6，从服务器下载整个目录：scp -r root@1.2.3.4:/home/ /Users/young/Desktop</p>
+<p>7， 将 bash 终端切换为：zsh：chsh -s /bin/zsh；切换回 bash：chsh -s /bin/bash</p>
+<p>8， Mac 允许打开第三方的 app：sudo spctl --master-disable</p>
+<p>9，在 Finder 中显示文件的全路径：defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder</p>
+<p>10，在 Finder 中隐藏文件的全路径：defaults delete com.apple.finder _FXShowPosixPathInTitle;killall Finder</p>
+<p>11，重置 Safari 浏览器：rm ~/Library/Preferences/com.apple.Safari.plist</p>
+<p>12，重置 IntelliJ IDEA：rm -rf /Users/young/Library/Preferences/IntelliJIdea2019.3 && /Users/young/Library/Caches/IntelliJIdea2019.3</p>
+<p>13，添加访问共享：Finder中，Commond + K，输入：smb://192.168.0.8/share</p>
+<p>14，切换root用户：sudo -i</p>
+<p>15，切换root权限：sudo su</p>
+<p>16，压缩与解压缩：
+    <div class="code">
+        <p><span class="comment">递归压缩：</span><br />zip -r foo.zip foo</p>
+        <p><span class="comment">排除所有隐藏文件：</span><br />zip -r foo.zip foo -x "*/\.*" -x "\.*"</p>
+        <p><span class="comment">解压缩：</span><br />unzip foo.zip</p>
+    </div>
+</p>
+<br />
+
+
+
+
+<p class="title">五，SFTP 文件上传</p>
+<p>1，先在本地ls能看到的文件夹</p>
+<p>2，进入目标：sftp root@139.198.15.189:/home/file/legongzhulian.com</p>
+<p>3，将本地的文件夹拷贝到目标：put -r legongzhulian.com/.</p>
+<br />
+
+
+<p class="title">
+    三，scp 远程拷贝文件时的错误：
+</p>
+
+<div class="code">
+<p>
+    Warning: Permanently added '10.0.0.182' (RSA) to the list of known hosts.
+</p>
+
+<p>
+    Permission denied (publickey).
+</p>
+</div>
+
+<p>
+    解决方法：
+</p>
+
+<div class="code">
+<p>1，登录服务器：ssh root@10.0.0.182</p>
+<p>2，vim /etc/ssh/sshd_config，修改：PasswordAuthentication no 为：PasswordAuthentication yes</p>
+<p>3，重启sshd服务：/etc/init.d/sshd restart</p>
+<p>4，CentOS7的重启方法：systemctl  restart sshd.service</p>
+</div>
+
+<p>
+    原因：scp是基于ssh的拷贝服务，ssh在没有密钥登录的情况下，禁用了密码登录，故出现如上错误。
+</p>
+
+<br />
+
+
+<p class="title">
+    四，80端口占用问题：
+</p>
+
+<p>
+    方法1：关闭系统自带的Apache：sudo apachectl start / restart / stop
+</p>
+
+<p>
+    方法2：
+</p>
+
+<p>
+    1，编辑：sudo vim /etc/pf.anchors/tomcat.forwarding，输入管理员密码后，在空白的文件中添加的内容如下：（将应用的15451端口映射到80端口）
+</p>
+
+<div class="code">
+    <p>
+        rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port 80 -> 127.0.0.1 port 15431
+    </p>
+
+    <p>
+        rdr pass on lo0 inet proto tcp from any to localhost port 80 -> localhost port 15431
+    </p>
+</div>
+
+<p>
+    2，编辑：sudo vim /etc/pf-tomcat.conf，输入管理员密码后，在空白的文件中添加的内容如下：（映射文件）
+</p>
+
+<div class="code">
+    <p>
+       rdr-anchor "forwarding"
+    </p>
+
+    <p>
+        load anchor "forwarding"from "/etc/pf.anchors/tomcat.forwarding"
+    </p>
+</div>
+
+
+<p>
+    3，编辑：<span class='red'><b>sudo pfctl -ef /etc/pf-tomcat.conf</b></span>，输入管理员密码后，出现下面的提示信息就表示80端口映射成功了！
+</p>
+
+<p>
+    <a href="images/article/article5.01.png" data-fancybox>
+        <img src="images/article/article5.01.png" width="500" />
+    </a>
+</p>
+<br />
+
+<p class="title">五，免密远程一：</p>
+<p>1，先要保证 .ssh 下有：id_rsa.pub。如果没有：ssh-keygen -t rsa -C "邮箱地址"，全部回车。</p>
+<p>2，将本地的公钥拷贝到目标机器的根下：scp ~/.ssh/id_rsa.pub root@192.168.1.2:~/</p>
+<p>3，远程：ssh root@192.168.1.2</p>
+<p>4，将你的公钥追加到目标机器的.ssh文件夹（如果没有.ssh目录，要先创建）中：cat id_rsa.pub >> .ssh/authorized_keys</p>
+<p>5，删除上传的公钥：rm -rf id_rsa.pub</p>
+<p>6，修改端口后：<span class="red">ssh root@192.168.1.2 -p 新端口（默认22不用写）</span></p>
+<p>6，scp有端口：<span class="red">scp -P 15451  ~/.ssh/id_rsa.pub root@192.168.1.2:~/（-大写的P，必须紧跟在 scp 后面）</span></p>
+<br />
+
+<p class="title">六，免密远程二（推荐）：</p>
+<p>1，生成密钥：</p>
+<div class="code">
+    <p>ssh-keygen</p>
+</div>
+<p>2，将本地的公钥拷贝到目标服务器（1，要接受访问；2，要输入密码）：</p>
+<div class="code">
+    <p>ssh-copy-id root@192.168.1.2</p>
+</div>
+<br />
+
+
+<p class="title">七，远程服务器出现没有文件或目录：</p>
+<p>错误信息：setlocale: LC_CTYPE: cannot change locale (UTF-8): 没有那个文件或目录</p>
+<p>解决方法：vim /etc/sysconfig/i18n</p>
+<p>追加：LC_ALL="zh_CN.UTF-8" </p>
+<p>（如果不行：在 /etc/locale.conf 追加：LC_CTYPE="zh_CN.UTF-8"）</p>
+<br />
+
+
+<p class="title">八，配置 Gmail</p>
+<p>1，pop.gmail.com    SSL    995</p>
+<p>2，smtp.gmail.com    TLS 587  / SSL 465</p>
+<br />
+
+<p class="title">九，Mac 系统的临时目录（相当于 Windows 的 %temp%；Linux 的 /tmp）</p>
+
+<p>
+    <a href="images/article/article5.02.png" data-fancybox>
+        <img src="images/article/article5.02.png" width="835" />
+    </a>
+</p>
+<br /></div>
+                <h4>Posted: 2022-02-27 20:05:06</h4>
+            </div>
+            <div id="articleAside">
+                <div id="category"></div>
+            </div>
+        </article>
+
+        <footer id="footer"></footer>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script src="js/public.js"></script>
+        <script src="js/jquery.fancybox.3.5.7.js"></script>
+    </body>
+</html>
